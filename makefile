@@ -10,20 +10,19 @@ build: $(CCMD) $(LOADBAR) $(CTVT)
 	$(CPP) -c -fPIC $(CTVT) --std=c++11
 	$(CPP) -shared -Wl,-soname,libctvt.so -o libctvt.so *.o
 install:
-	cp libctvt.so /usr/lib/
-	mkdir /usr/include/ctvt
-	cp ctvt.h /usr/include/ctvt/
-	cp loadbar.h /usr/include/ctvt/
+	cp -f libctvt.so /usr/lib/
+	[ -d /usr/include/ctvt ] || mkdir /usr/include/ctvt
+	cp -f ctvt.h /usr/include/ctvt/
+	cp -f loadbar.h /usr/include/ctvt/
 uninstall:
-	rm /usr/lib/libctvt.so
-	rm /usr/include/ctvt/ctvt.h
-	rm /usr/include/ctvt/loadbar.h
-	rmdir /usr/include/ctvt
+	rm -f /usr/lib/libctvt.so
+	rm -f /usr/include/ctvt/ctvt.h
+	rm -f /usr/include/ctvt/loadbar.h
+	[ -d /usr/include/ctvt ] && rmdir /usr/include/ctvt
 test: test.cpp $(CTVT) $(LOADBAR)
-	export TMP_PATH=$LD_LIBRARY_PATH
-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
-	g++ -o test test.cpp -L. -lctvt
-	./test
-	export LD_LIBRARY_PATH=$TMP_PATH
+	g++ -o test test.cpp $(CCMD) $(LOADBAR) $(CTVT)
 clean:
-	rm *.o *.so *.gch
+	for file in $$(ls *.o); do rm $$file; done
+	for file in $$(ls *.so); do rm $$file; done
+	for file in $$(ls *.gch); do rm $$file; done
+	if [ -e test ]; then rm test; fi
