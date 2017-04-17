@@ -1,13 +1,13 @@
 CPP=g++
 
-CCMD=ccmd.cpp ccmd.h
-LOADBAR=loadbar.cpp loadbar.h
-CTVT=ctvt.cpp ctvt.h
+CCMD=ccmd.cpp
+LOADBAR=loadbar.cpp
+CTVT=ctvt.cpp
 
 build: $(CCMD) $(LOADBAR) $(CTVT)
-	$(CPP) -c -fPIC $(CCMD) --std=c++11
-	$(CPP) -c -fPIC $(LOADBAR) --std=c++11
-	$(CPP) -c -fPIC $(CTVT) --std=c++11
+	$(CPP) -c -fPIC $(CCMD)
+	$(CPP) -c -fPIC $(LOADBAR)
+	$(CPP) -c -fPIC $(CTVT)
 	$(CPP) -shared -Wl,-soname,libctvt.so -o libctvt.so *.o
 install:
 	cp -f libctvt.so /usr/lib/
@@ -20,7 +20,7 @@ uninstall:
 	rm -f /usr/include/ctvt/loadbar.h
 	[ -d /usr/include/ctvt ] && rmdir /usr/include/ctvt
 test: test.cpp $(CTVT) $(LOADBAR)
-	g++ -o test test.cpp $(CCMD) $(LOADBAR) $(CTVT)
+	g++ -g -o test test.cpp $(CCMD) $(LOADBAR) $(CTVT)
 clean:
 	for file in $$(ls *.o); do rm $$file; done
 	for file in $$(ls *.so); do rm $$file; done
