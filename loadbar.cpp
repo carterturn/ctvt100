@@ -21,46 +21,46 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <sstream>
 #include "loadbar.h"
 
 using namespace std;
 
-loadbar::loadbar(bool twoline){
-	multiline = twoline;
-	terminal.getWindowSize(&win_x, &win_y);
-}
+loadbar::loadbar(bool two_line) : two_line(two_line), ctvt() {}
 
-
-loadbar::~loadbar(){}
 
 void loadbar::draw(float percentage){
-	if(multiline) drawtwo(percentage);
-	else drawone(percentage);
+	if(two_line) draw_two_line(percentage);
+	else draw_one_line(percentage);
 }
 
 int loadbar::getX(){
 	return win_x;
 }
 
-void loadbar::drawone(float percentage){
-	int dist = percentage*win_x - 7;
-	
-	terminal.clearLines(2 );
-	cout << "<[";
+void loadbar::draw_one_line(float percentage){
+	string line_start = "<[";
+	string line_end = "| ";
+	stringstream percentage_string;
+	percentage_string.width(3);
+	percentage_string.fill(' ');
+	percentage_string << (int) (percentage * 100.0f) + 1;
+	percentage_string << "%";
+	line_end += percentage_string.str();
+
+	int dist = percentage*(win_x - (line_start.length() + line_end.length()));
+	clearLines(1);
+	cout << line_start;
 	for(int j = 0; j < dist; j++) cout << "=";
-	for(int j = max(dist, 0); j < win_x-8; j++) cout << " ";
-	cout << "| ";
-	string perstr = to_string((int) (percentage*100 + 1));
-	if(perstr.length() == 1) perstr = "  "+perstr;
-	else if(perstr.length() == 2) perstr = " "+perstr;
-	cout << perstr << "%";
+	for(int j = max(dist, 0); j < win_x-9; j++) cout << " ";
+	cout << line_end;
 	cout << "\n";
 }
 
-void loadbar::drawtwo(float percentage){
+void loadbar::draw_two_line(float percentage){
 	int dist = percentage*win_x;
 	
-	terminal.clearLines(2);
+	clearLines(1);
 	cout << (int) (percentage*100 + 1) << "%\n";
 	cout << "<[";
 	for(int j = 0; j < dist-3; j++) cout << "=";

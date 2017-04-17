@@ -21,20 +21,16 @@
 
 #include "ctvt.h"
 
-class loadbar{
+class loadbar : protected ctvt{
 public:
-	loadbar(bool twoline);
-	~loadbar();
+	loadbar(bool two_line);
 	
 	void draw(float percentage);
 	
 	int getX();
 private:
-	ctvt terminal;
-	bool multiline;
+	bool two_line;
 	
-	void drawone(float percentage);
-	void drawtwo(float percentage);
-	
-	int win_x, win_y;
+	void draw_one_line(float percentage);
+	void draw_two_line(float percentage);
 };
