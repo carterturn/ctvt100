@@ -29,8 +29,27 @@ int main(int argc, char* argv[]){
 	
 	terminal.clear();
 	
-	terminal.printSpecial("Hello Carter\n", printMode::BOLD);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::RED, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::YELLOW, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::GREEN, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::CYAN, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLUE, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::PURPLE, ctvt::COLOR_NONE);
 	
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLACK, ctvt::PURPLE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLACK, ctvt::BLUE);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLACK, ctvt::CYAN);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLACK, ctvt::GREEN);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLACK, ctvt::YELLOW);
+	terminal.printSpecial("Hello Carter\n", ctvt::MODE_NONE, ctvt::BLACK, ctvt::RED);
+
+	terminal.printSpecial("Hello Carter\n", ctvt::BOLD, ctvt::COLOR_NONE, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::DIM, ctvt::COLOR_NONE, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::UNDERSCORE, ctvt::COLOR_NONE, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::BLINK, ctvt::COLOR_NONE, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::REVERSE, ctvt::COLOR_NONE, ctvt::COLOR_NONE);
+	terminal.printSpecial("Hello Carter\n", ctvt::HIDDEN, ctvt::COLOR_NONE, ctvt::COLOR_NONE);
+
 	usleep(1000000);
 	
 	terminal.clear();
@@ -38,11 +57,10 @@ int main(int argc, char* argv[]){
        	usleep(1000000);
 	
 	loadbar bar(false);
-	
-	cout << "\n";
+
 	for(int i = 0; i < bar.getX(); i++){
 		bar.draw((float) i/(float) bar.getX());
-		usleep(100000);
+		usleep(10000);
 	}
 	
 	return 0;
