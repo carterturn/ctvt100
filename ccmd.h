@@ -1,5 +1,5 @@
 /*
-  Copyright 2015 Carter Turnbaugh
+  Copyright 2017 Carter Turnbaugh
 
   This file is part of Terca C++ VT100 Interface.
 
