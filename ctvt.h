@@ -22,25 +22,23 @@
 #include <sstream>
 #include "unistd.h"
 
-namespace printMode{
-	enum mode {BOLD, DIM, UNDERSCORE, BLINK, REVERSE, HIDDEN};
-}
-
 class ctvt{
 public:
+	enum mode {MODE_NONE, BOLD, DIM, UNDERSCORE, BLINK, REVERSE, HIDDEN};
+	enum color {COLOR_NONE, BLACK, RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, WHITE};
 	ctvt();
-	~ctvt();
 	
 	void clear();
 	void clearLines(int lines);
 	
 	void setpos(int x, int y);
 	
-	void printSpecial(std::string text, printMode::mode mode);
+	void printSpecial(std::string text, ctvt::mode mode, ctvt::color foreground_color,
+			  ctvt::color background_color);
 	
 	void getWindowSize(int *x, int *y);
 	
-private:
+protected:
 	int win_x;
 	int win_y;
 };
